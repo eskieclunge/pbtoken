@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/8c334564-82e7-4415-9e3b-4eb4934f3c3e/AppServices/subscriptions/8c334564-82e7-4415-9e3b-4eb4934f3c3e/resourceGroups/pbarnett-rg/providers/Microsoft.Web/sites/pbtoken",
+    "appService.deploySubpath": "."
+}

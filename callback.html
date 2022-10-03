@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang='en' class=''>
+
+<head>
+
+  <meta charset='UTF-8'>
+  <title>Open Banking Payment Demo</title>
+
+  <meta name="robots" content="noindex">
+
+  <link rel="shortcut icon" type="image/x-icon" href="token.png"> <!-- Icons included here -->
+  <link rel="mask-icon" href="token.png" color="#111">
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+  <body>
+
+      <h1 style="color:rgb(41, 0, 87);">
+        Callback Parameters
+      </h1>
+    
+      <p id="rq"></p>
+      <p id="status"></p>
+      <p id="t"></p>
+      <p id="errorMsg"></p>
+
+  <script>
+    function GetURLParameter(sParam){
+      var sPageURL = window.location.search.substring(1);
+      var sURLVariables = sPageURL.split('&');
+      for (var i = 0; i < sURLVariables.length; i++) 
+      {
+          var sParameterName = sURLVariables[i].split('=');
+          if (sParameterName[0] == sParam) 
+          {
+              return sParameterName[1];
+          }
+      } 
+    } 
+
+    let rq = GetURLParameter('request-id');
+    let status = GetURLParameter('transfer-status');
+    let t = GetURLParameter('transfer-id');
+    let errorMsg = GetURLParameter('message');
+
+    rq = decodeURIComponent(rq);
+    t = decodeURIComponent(t);
+    errorMsg = decodeURIComponent(errorMsg);
+
+    document.getElementById("rq").innerHTML = "requestId : " + rq;
+    document.getElementById("status").innerHTML = "Payment Initiation Status : " + status;
+    document.getElementById("t").innerHTML = "transferId : " + t;
+    document.getElementById("errorMsg").innerHTML = "Error Message : " + errorMsg;
+
+  </script>
+
+  </body>
+</html> 
