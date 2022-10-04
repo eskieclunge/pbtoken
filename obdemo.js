@@ -10,7 +10,11 @@ function send() {
             },
     
             //"countries":["GB"],
-    
+
+            "actingAs":{
+                "displayName": "Wolf Merchant",
+                "refId": "f43f2be7-5b21-4408-b0d4-63d2ba1ed3f3"
+            },
     
             "transferBody": {
                 "currency": "GBP",
@@ -34,7 +38,7 @@ function send() {
     
           
     
-            "description": "Donation - Saturdays",
+            "description": "Donation-Saturdays",
             "refId": x,
             "redirectUrl": "https://pbtoken.azurewebsites.net/callback.html" // the URL that the request or PSU should be returned to (the TPP) 
             
@@ -60,9 +64,8 @@ function send() {
 function renderrq(data) {
     // Get text elements
     const rq = document.getElementById("rq");
-    var link
     
-    rq.innerHTML = "https://web-app.token.io/app/request-token/" + data.tokenRequest.id;
+    rq.href = "https://web-app.token.io/app/request-token/" + data.tokenRequest.id;
+    rq.innerHTML = "WebApp link:  " + "https://web-app.token.io/app/request-token/" + data.tokenRequest.id;
     console.log(rq);
-    link = rq
 }

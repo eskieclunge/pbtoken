@@ -24,6 +24,7 @@
       <p id="status"></p>
       <p id="t"></p>
       <p id="errorMsg"></p>
+      
 
   <script>
     function GetURLParameter(sParam){
@@ -44,6 +45,7 @@
     let t = GetURLParameter('transfer-id');
     let errorMsg = GetURLParameter('message');
 
+
     rq = decodeURIComponent(rq);
     t = decodeURIComponent(t);
     errorMsg = decodeURIComponent(errorMsg);
@@ -54,6 +56,65 @@
     document.getElementById("errorMsg").innerHTML = "Error Message : " + errorMsg;
 
   </script>
+
+  <script>
+
+    function renderrq(data) {
+    // Get text elements
+  
+      document.getElementById("rq").innerHTML = "requestId : " + rq;
+      document.getElementById("status").innerHTML = "First Payment Initiation Status : " + status;
+      document.getElementById("t").innerHTML = "transferId : " + t;
+      document.getElementById("errorMsg").innerHTML = "Error Message : " + errorMsg;
+
+      trStatus.innerHTML = "Token Request Status : " + data.status;
+      console.log(data.status);
+
+    } 
+
+    function refreshTR() {
+      fetch("https://api.token.io/token-requests/"+rq+"/result", {
+        method: "GET",
+        headers: {
+            "Authorization" : "Basic bS0yckV0aTV4ZlhQWDEzRjdmc1NwZ1U5RmRYN3dzLTV6S3RYRUFxOjlhODU0ZmJhLTAyMTYtNDg5Zi04ZWJlLWY5OTBlNjMyNTM3Yg==",
+            "Content-Type": "application/json",
+        }
+      })
+      .then((response) => response.json())
+      .then((data) => renderrq(data));
+    }
+
+
+    function rendert(data) {
+    // Get text elements
+  
+
+      tStatus.innerHTML = "Polled Payment Initiation Status : " + data.transfer.status;
+      console.log(data.transfer.status);
+    } 
+    function refreshT() {
+      fetch("https://api.token.io/transfers/"+t, {
+        method: "GET",
+        headers: {
+            "Authorization" : "Basic bS0yckV0aTV4ZlhQWDEzRjdmc1NwZ1U5RmRYN3dzLTV6S3RYRUFxOjlhODU0ZmJhLTAyMTYtNDg5Zi04ZWJlLWY5OTBlNjMyNTM3Yg==",
+            "Content-Type": "application/json",
+        }
+      })
+      .then((response) => response.json())
+      .then((data) => rendert(data));
+    }
+
+
+
+  </script>
+  <p></p>
+
+  <button id="button" onclick="refreshTR()" type='paymentbutton' >Refresh Token Request status</button>
+
+  <p id="trStatus"></p>
+  <p></p>
+  <button id="button" onclick="refreshT()" type='paymentbutton' >Refresh Payment Initiation status</button>
+  <p id="tStatus"></p>
 
   </body>
 </html> 
