@@ -19,7 +19,7 @@ function GetURLParameter(sParam){
     // Get text elements
   
       document.getElementById("rq").innerHTML = "requestId : " + rq;
-      document.getElementById("status").innerHTML = "First Payment Initiation Status : " + status;
+      document.getElementById("status").innerHTML = "Initial Payment Initiation Status : " + status;
       document.getElementById("t").innerHTML = "transferId : " + t;
       document.getElementById("errorMsg").innerHTML = "Error Message : " + errorMsg;
 
