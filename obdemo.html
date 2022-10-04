@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang='en' class=''>
+
+<head>
+
+  <meta charset='UTF-8'>
+  <title>Open Banking Payment Demo</title>
+
+  <meta name="robots" content="noindex">
+
+  <link rel="shortcut icon" type="image/x-icon" href="token.png"> <!-- Icons included here -->
+  <link rel="mask-icon" href="token.png" color="#111">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="paymentinitiation.js"></script>
+</head>
+
+<body>
+    <p>This is an Open Banking Payment Demo using Token.io for Best in Class Pan-European and UK Connectivity.</p>   
+  
+  <br> 
+
+  
+  <p>Choose your currency:</p>
+
+  <!-- Icons included <form>
+    <input type="radio" id="gbp" name="currency" value="gbp">
+    <label for="gbp">GBP</label><br>
+    <input type="radio" id="eur" name="currency" value="eur">
+    <label for="eur">EUR</label><br>
+  </form>
+  here --> 
+  
+  <input type="number" id="amount" placeholder="Amount" />
+
+  <button id="button" onclick="send()" type='paymentbutton' >Initiate Payment</button>
+
+  <p id="rq" href="link"></p>
+
+
+</body>
+  
+
+
+
+</html>
