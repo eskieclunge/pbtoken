@@ -65,7 +65,7 @@
       document.getElementById("t").innerHTML = "transferId : " + t;
       document.getElementById("errorMsg").innerHTML = "Error Message : " + errorMsg;
 
-      trStatus.innerHTML = "Token Request Status : " + data.status;
+      trStatus.innerHTML = "Payment Initiation Request Status : " + data.status;
       console.log(data.status);
 
     } 
@@ -87,7 +87,7 @@
     // Get text elements
   
 
-      tStatus.innerHTML = "Polled Payment Initiation Status : " + data.transfer.status;
+      tStatus.innerHTML = "Polled Payment Initiation Transaction Status : " + data.transfer.status;
       console.log(data.transfer.status);
     } 
     function refreshT() {
@@ -105,13 +105,14 @@
 
 
   </script>
+
   <p></p>
 
-  <button id="button" onclick="refreshTR()" type='paymentbutton' >Refresh Token Request status</button>
+  <button id="button" onclick="refreshTR()" type='paymentbutton' >Refresh Payment Initiation Request status</button>
 
   <p id="trStatus"></p>
   <p></p>
-  <button id="button" onclick="refreshT()" type='paymentbutton' >Refresh Payment Initiation status</button>
+  <button id="button" onclick="refreshT()" type='paymentbutton' >Refresh Payment Initiation Transaction status</button>
   <p id="tStatus"></p>
 
   </body>

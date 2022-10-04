@@ -64,8 +64,15 @@ function send() {
 function renderrq(data) {
     // Get text elements
     const rq = document.getElementById("rq");
+    var target = 'target="_blank"';
+
+    // link = "https://web-app.token.io/app/request-token/" + data.tokenRequest.id
+
+    link = "<a " + target + "href='https://web-app.token.io/app/request-token/" + data.tokenRequest.id +"'>WebApp Link</a>";
     
-    rq.href = "https://web-app.token.io/app/request-token/" + data.tokenRequest.id;
-    rq.innerHTML = "WebApp link:  " + "https://web-app.token.io/app/request-token/" + data.tokenRequest.id;
-    console.log(rq);
+    
+    document.getElementById("rq").innerHTML = link
+    document.getElementById("fulllink").innerHTML = "https://web-app.token.io/app/request-token/" + data.tokenRequest.id
+
+    console.log("https://web-app.token.io/app/request-token/" + data.tokenRequest.id);
 }
