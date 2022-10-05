@@ -127,7 +127,7 @@ function sendeur() {
 
 function renderrq(data) {
     // Get text elements
-    const rq = document.getElementById("rq");
+    const rq = document.getElementById("clicklink");
     var target = 'target="_blank"';
 
     // link = "https://web-app.token.io/app/request-token/" + data.tokenRequest.id
@@ -135,9 +135,23 @@ function renderrq(data) {
     hyperlink = "<a " + target + "href='https://web-app.token.io/app/request-token/" + data.tokenRequest.id +"'>WebApp Link</a>";
     fulllink = "https://web-app.token.io/app/request-token/" + data.tokenRequest.id
     
-    document.getElementById("rq").innerHTML = hyperlink
+    document.getElementById("clicklink").innerHTML = hyperlink
     document.getElementById("fulllink").innerHTML = fulllink
 
-    console.log(fulllink);
+    sessionStorage.setItem("qr",fulllink);
+
+    qr = sessionStorage.getItem("qr");
+
+    
+    var qrcode = new QRCode(document.getElementById("qrcode-2"), {
+	text: qr,
+	width: 128,
+	height: 128,
+	colorDark : "#5868bf",
+	colorLight : "#ffffff",
+	correctLevel : QRCode.CorrectLevel.H
+    });
+
+    console.log(qr);
 }
 
