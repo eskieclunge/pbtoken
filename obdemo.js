@@ -135,7 +135,7 @@ function sendpln() {
                 "id": "m:2rEti5xfXPX13F7fsSpgU9FdX7ws:5zKtXEAq"
             },
     
-            //"countries":["GB"],
+            "countries":["PL"],
 
             "actingAs":{
                 "displayName": "Polish Humanitarian Action",
@@ -150,7 +150,7 @@ function sendpln() {
                     "transferDestinations": [
                         {
                             "elixir": {
-                                "accountNumber": "02249000050000460083168772" //CREDITOR IBAN IS MANDATORY
+                                "accountNumber": "PL02249000050000460083168772" //CREDITOR IBAN IS MANDATORY
                             },
                             "customerData": {
                                 "legalNames": [
