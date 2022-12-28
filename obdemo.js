@@ -41,7 +41,7 @@ function sendgbp() {
     
             "description": "Donation to Unicef",
             "refId": x,
-            "redirectUrl": "https://pbtoken.azurewebsites.net/callback.html" // the URL that the request or PSU should be returned to (the TPP) 
+            "redirectUrl": "http://pbarnett.io/callback.html" // the URL that the request or PSU should be returned to (the TPP) 
             
         }
     
@@ -77,22 +77,22 @@ function sendeur() {
     
             "actingAs":{                              // Used to specify the sub-tpp executing the transaction
                 "refId": "f43f2be7-5b21-4408-b0d4-63d2ba1ed3f3",
-                "displayName": "Developer"
+                "displayName": "Sauveteurs Sans Frontières"
     
             },
     
 
             "transferBody": {
                 "currency": "EUR",
-                "lifetimeAmount": "1.20",
+                "lifetimeAmount": Amount,
                 "instructions": {
                     "transferDestinations": [
                         {
                             "sepa": {
-                                "iban": "GB63REVO00997010707063"    
+                                "iban": "FR7630003011320003726132433"    
                             },
                             "customerData": {
-                                "legalNames": ["King Pedro"]
+                                "legalNames": ["Sauveteurs Sans Frontières"]
                             }
                         }
                     ]
@@ -101,9 +101,9 @@ function sendeur() {
     
           
     
-            "description": "Example description",
+            "description": "Donation to SSF",
             "refId": x,
-            "redirectUrl": "http://pbtoken.azurewebsites.net/callback.html" // the URL that the request or PSU should be returned to (the TPP) 
+            "redirectUrl": "http://pbarnett.io/callback.html" // the URL that the request or PSU should be returned to (the TPP) 
             
         }
     
@@ -168,7 +168,7 @@ function sendpln() {
     
             "description": "Donation to PAH",
             "refId": x,
-            "redirectUrl": "https://pbtoken.azurewebsites.net/callback.html" // the URL that the request or PSU should be returned to (the TPP) 
+            "redirectUrl": "http://pbarnett.io/callback.html" // the URL that the request or PSU should be returned to (the TPP) 
             
         }
     
@@ -190,6 +190,72 @@ function sendpln() {
 
 }
 
+function sendlei() {
+    var x = (Math.floor(Math.random() * 100000000) + 100000000).toString().substring(1);
+    var Amount = document.getElementById("Amount").value;
+
+
+      const json = {
+        "requestPayload": {
+            "to": {
+                "alias": {"realmId":"m:jH8SCQjtW9uGEQCrNS99qCJ8cHN:5zKtXEAq","type":"DOMAIN","value":"pbarnett.ioo"},
+                "id": "m:2rEti5xfXPX13F7fsSpgU9FdX7ws:5zKtXEAq"
+            },
+    
+            "countries":["RO"],
+
+            "actingAs":{
+                "displayName": "sf-ana",
+                "refId": "f43f2be7-5b21-4408-b0d4-63d2ba1ed3f3"
+            },
+    
+            "transferBody": {
+                "currency": "RON",
+                "returnRefundAccount": "true",
+                "lifetimeAmount": Amount,
+                "instructions": {
+                    "transferDestinations": [
+                        {
+                            "euDomesticNonEuro": {
+                                "iban": "RO28BTRLRONCRT0644940901" //CREDITOR IBAN IS MANDATORY
+                            },
+                            "customerData": {
+                                "legalNames": [
+                                    "sf-ana" //CREDITOR NAME IS MANDATORY
+                                ],
+                                "address": {
+                                    "full": "tbc"
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+          
+    
+            "description": "Donation to sf-ana",
+            "refId": x,
+            "redirectUrl": "http://pbarnett.io/callback.html" // the URL that the request or PSU should be returned to (the TPP) 
+            
+        }
+    
+    //     "bankId": "ngp-byla"
+    //    }
+    };
+    
+
+    fetch("https://api.token.io/token-requests", {
+        method: "POST",
+        headers: {
+            "Authorization" : "Basic bS0yckV0aTV4ZlhQWDEzRjdmc1NwZ1U5RmRYN3dzLTV6S3RYRUFxOjlhODU0ZmJhLTAyMTYtNDg5Zi04ZWJlLWY5OTBlNjMyNTM3Yg==",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(json),
+    })
+    .then((response) => response.json())
+    .then((data) => renderrq(data));
+
+}
 
 function renderrq(data) {
     // Get text elements
@@ -198,8 +264,8 @@ function renderrq(data) {
 
     // link = "https://web-app.token.io/app/request-token/" + data.tokenRequest.id
 
-    hyperlink = "<a " + target + "href='https://web-app.token.io/app/request-token/" + data.tokenRequest.id +"'>WebApp Link</a>";
-    fulllink = "https://web-app.token.io/app/request-token/" + data.tokenRequest.id
+    hyperlink = "<a " + target + "href='https://web-app.token.io/app/request-token/" + data.tokenRequest.id + "?dk=global-test"+"'>WebApp Link</a>";
+    fulllink = "https://web-app.token.io/app/request-token/" + data.tokenRequest.id + "?dk=global-test"
     
     document.getElementById("clicklink").innerHTML = hyperlink
     document.getElementById("fulllink").innerHTML = fulllink

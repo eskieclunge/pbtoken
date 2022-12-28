@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang='en' class=''>
+
+<head>
+
+  <meta charset='UTF-8'>
+  <title>Open Banking Payment Demo</title>
+  <meta name="robots" content="noindex">
+
+  <link rel="shortcut icon" type="image/png" href="icon.png">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="obdemo.js"></script>
+  
+</head>
+
+<body style="font-size: 20px; color:#040e6a;">
+  <a href="https://www.token.io/">
+    <img width="145" height="150" src="token.png" sizes="(max-width: 290px) 100vw, 290px">
+  </a>
+
+  <p>This is an Open Banking Payment Demo using Token.io for Best in Class Pan-European and UK Connectivity.</p>   
+  
+  <br> 
+
+  <p>Choose the amount:</p>
+  <input type="number" id="Amount" placeholder="Amount" />
+
+  <p>Choose your currency:</p>
+
+  <button id="button" onclick="sendlei()" type='paymentbutton' >Initiate Lei Payment to sf-ana.ro</button>
+  
+
+  <p id="clicklink"></p>
+  <p id="fulllink"></p>
+
+
+<p></p>
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+
+
+  <div id="qrcode-2"></div>
+
+/* QR Code for Launch on Mobile */
+</body>
+
+
+
+
+</html>
