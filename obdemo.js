@@ -53,7 +53,7 @@ function sendgbp() {
     fetch("https://api.token.io/token-requests", {
         method: "POST",
         headers: {
-            "Authorization" : "Basic bS0yckV0aTV4ZlhQWDEzRjdmc1NwZ1U5RmRYN3dzLTV6S3RYRUFxOjlhODU0ZmJhLTAyMTYtNDg5Zi04ZWJlLWY5OTBlNjMyNTM3Yg==",
+            "Authorization" : "Basic bS0yckV0aTV4ZlhQWDEzRjdmc1NwZ1U5RmRYN3dzLTV6S3RYRUFxOjM2YTExYzJmLWU5ZWItNGNlZi1iYzk1LTYyZDZiZjEzM2Y0Nw==",
             "Content-Type": "application/json",
         },
         body: JSON.stringify(json),
@@ -76,7 +76,7 @@ function sendeur() {
             },
     
             "actingAs":{                              // Used to specify the sub-tpp executing the transaction
-                "refId": "f43f2be7-5b21-4408-b0d4-63d2ba1ed3f3",
+                "refId": "ba8597ac-aa69-4171-864e-457cc5d4982a",
                 "displayName": "Sauveteurs Sans Frontières"
     
             },
@@ -113,7 +113,7 @@ function sendeur() {
     fetch("https://api.token.io/token-requests", {
         method: "POST",
         headers: {
-            "Authorization" : "Basic bS0yckV0aTV4ZlhQWDEzRjdmc1NwZ1U5RmRYN3dzLTV6S3RYRUFxOjlhODU0ZmJhLTAyMTYtNDg5Zi04ZWJlLWY5OTBlNjMyNTM3Yg==",
+            "Authorization" : "Basic bS0yckV0aTV4ZlhQWDEzRjdmc1NwZ1U5RmRYN3dzLTV6S3RYRUFxOjM2YTExYzJmLWU5ZWItNGNlZi1iYzk1LTYyZDZiZjEzM2Y0Nw==",
             "Content-Type": "application/json",
         },
         body: JSON.stringify(json),
@@ -139,7 +139,7 @@ function sendpln() {
 
             "actingAs":{
                 "displayName": "Polish Humanitarian Action",
-                "refId": "f43f2be7-5b21-4408-b0d4-63d2ba1ed3f3"
+                "refId": "7de1a874-f432-4aef-b9d9-f56bc1d93110"
             },
     
             "transferBody": {
@@ -180,7 +180,7 @@ function sendpln() {
     fetch("https://api.token.io/token-requests", {
         method: "POST",
         headers: {
-            "Authorization" : "Basic bS0yckV0aTV4ZlhQWDEzRjdmc1NwZ1U5RmRYN3dzLTV6S3RYRUFxOjlhODU0ZmJhLTAyMTYtNDg5Zi04ZWJlLWY5OTBlNjMyNTM3Yg==",
+            "Authorization" : "Basic bS0yckV0aTV4ZlhQWDEzRjdmc1NwZ1U5RmRYN3dzLTV6S3RYRUFxOjM2YTExYzJmLWU5ZWItNGNlZi1iYzk1LTYyZDZiZjEzM2Y0Nw==",
             "Content-Type": "application/json",
         },
         body: JSON.stringify(json),
@@ -247,7 +247,7 @@ function sendlei() {
     fetch("https://api.token.io/token-requests", {
         method: "POST",
         headers: {
-            "Authorization" : "Basic bS0yckV0aTV4ZlhQWDEzRjdmc1NwZ1U5RmRYN3dzLTV6S3RYRUFxOjlhODU0ZmJhLTAyMTYtNDg5Zi04ZWJlLWY5OTBlNjMyNTM3Yg==",
+            "Authorization" : "Basic bS0yckV0aTV4ZlhQWDEzRjdmc1NwZ1U5RmRYN3dzLTV6S3RYRUFxOjM2YTExYzJmLWU5ZWItNGNlZi1iYzk1LTYyZDZiZjEzM2Y0Nw==",
             "Content-Type": "application/json",
         },
         body: JSON.stringify(json),
@@ -287,3 +287,111 @@ function renderrq(data) {
     console.log(qr);
 }
 
+function sendgbpwithbank() {
+    var x = (Math.floor(Math.random() * 100000000) + 100000000).toString().substring(1);
+    var Amount = document.getElementById("Amount").value;
+    var bankId = document.getElementById("bankId").value;
+
+      const json = {
+        "initiation": {
+            "bankId": bankId,
+            "refId": x,
+            "remittanceInformationPrimary": x,
+            "remittanceInformationSecondary": x,
+            //"onBehalfOfId": "string",
+            "amount": {
+                "value": Amount,
+                "currency": "GBP"
+            },
+            "localInstrument": "FASTER_PAYMENTS",
+            //"debtor": {
+            //  "name": "John Smith",
+            //  "ultimateDebtorName": "John Smith",
+            //  "iban": "GB33BUKB20201555555555",
+            //  "bic": "BUKBGB22"
+            //},
+            "creditor": {
+                "name": "Unicef",
+                //"ultimateCreditorName": "Customer Inc.",
+                //"bankName": "string",
+                //"address": {
+                //  "addressLine": [
+                //    "string"
+                //  ],
+                //  "streetName": "string",
+                //  "buildingNumber": "string",
+                //  "postCode": "string",
+                //  "townName": "string",
+                //  "countrySubDivision": [
+                //    "string"
+                //  ],
+                //  "country": "string"
+                // },
+                "accountNumber": "91566814",
+                "sortCode": "400602"
+                //"iban": "",
+                //"bic": "BUKBGB22"
+            },
+            //"executionDate": "2017-04-05",
+            //"confirmFunds": false,
+            "returnRefundAccount": true,
+            "disableFutureDatedPaymentConversion": true,
+            "callbackUrl": "http://pbarnett.io/callback.html}"
+            //"callbackState": "callbackState",
+            //"chargeBearer": "CRED"
+            //"risk": {
+            //  "psuId": "string",
+            //  "paymentContextCode": "PISP_PAYEE",
+            //  "paymentPurposeCode": "DVPM",
+            //  "merchantCategoryCode": "merchantCategoryCode"
+            //}
+        },
+        "pispConsentAccepted": true
+        //"initialCredentials": {
+        //  "username": "John Doe"
+        //}
+    };
+    
+
+    fetch("https://api.token.io/v2/payments", {
+        method: "POST",
+        headers: {
+            "Authorization" : "Basic bS1xdkJWeUdab2Y1N0J3Q0UzMURGQkNzRk1aV1EtNXpLdFhFQXE6MjJjZmRkNGEtOTRkNy00ZGY5LThiNGMtYjkwZDkyMWIxNWQ1",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(json),
+    })
+    .then((response) => response.json())
+    .then((data) => v2pmid(data));
+
+}
+
+function v2pmid(data) {
+    // Get text elements
+    const rq = document.getElementById("clicklink");
+    var target = 'target="_blank"';
+
+    // link = "https://web-app.token.io/app/request-token/" + data.tokenRequest.id
+
+    
+    redirect = data.payment.authentication.redirectUrl
+    
+    
+    document.getElementById("fulllink").innerHTML = redirect
+
+    sessionStorage.setItem("qr",redirect);
+
+    qr = sessionStorage.getItem("qr");
+
+    
+    var qrcode = new QRCode(document.getElementById("qrcode-2"), {
+	text: qr,
+	width: 128,
+	height: 128,
+	colorDark : "#5868bf",
+	colorLight : "#ffffff",
+	correctLevel : QRCode.CorrectLevel.H
+    });
+
+    console.log(qr);
+}
