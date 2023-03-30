@@ -287,101 +287,68 @@ function renderrq(data) {
     console.log(qr);
 }
 
-function sendgbpwithbank() {
+
+function sendv2natwest() {
     var x = (Math.floor(Math.random() * 100000000) + 100000000).toString().substring(1);
     var Amount = document.getElementById("Amount").value;
-    var bankId = document.getElementById("bankId").value;
+
 
       const json = {
         "initiation": {
-            "bankId": bankId,
-            "refId": x,
-            "remittanceInformationPrimary": x,
-            "remittanceInformationSecondary": x,
-            //"onBehalfOfId": "string",
-            "amount": {
-                "value": Amount,
-                "currency": "GBP"
+          "bankId": "ob-natwest",                                     // Sets the bank to to be used
+          "refId": x,                          // Sets the unique payment reference identifier
+          "remittanceInformationPrimary": x,
+          "remittanceInformationSecondary": "secondary remittance info",
+          //"onBehalfOfId": "string",
+      
+          "amount": {
+            "value": Amount,                                          // Specifies the number of the payment
+            "currency": "GBP"                                         // Specifies the currency of the payment to be initiated
+          },
+          "localInstrument": "FASTER_PAYMENTS",                       // Specifies the payment rail to be used
+      
+          "creditor": {                                   
+            "name": "Alipay top-up",                               // Specifies the legal name of the beneficiary account
+            "accountNumber": "83998835",                              // Specifies the account number of the beneficiary account
+            "sortCode": "090128"                                      // Specifies the sort code of the beneficiary account
             },
-            "localInstrument": "FASTER_PAYMENTS",
-            //"debtor": {
-            //  "name": "John Smith",
-            //  "ultimateDebtorName": "John Smith",
-            //  "iban": "GB33BUKB20201555555555",
-            //  "bic": "BUKBGB22"
-            //},
-            "creditor": {
-                "name": "Unicef",
-                //"ultimateCreditorName": "Customer Inc.",
-                //"bankName": "string",
-                //"address": {
-                //  "addressLine": [
-                //    "string"
-                //  ],
-                //  "streetName": "string",
-                //  "buildingNumber": "string",
-                //  "postCode": "string",
-                //  "townName": "string",
-                //  "countrySubDivision": [
-                //    "string"
-                //  ],
-                //  "country": "string"
-                // },
-                "accountNumber": "91566814",
-                "sortCode": "400602"
-                //"iban": "",
-                //"bic": "BUKBGB22"
-            },
-            //"executionDate": "2017-04-05",
-            //"confirmFunds": false,
-            "returnRefundAccount": true,
-            "disableFutureDatedPaymentConversion": true,
-            "callbackUrl": "http://pbarnett.io/callback.html}"
-            //"callbackState": "callbackState",
-            //"chargeBearer": "CRED"
-            //"risk": {
-            //  "psuId": "string",
-            //  "paymentContextCode": "PISP_PAYEE",
-            //  "paymentPurposeCode": "DVPM",
-            //  "merchantCategoryCode": "merchantCategoryCode"
-            //}
+      
+          "returnRefundAccount": true,                                // Specifies whether the originator account information should be provided back to the TPP
+          "callbackUrl": "https://www.alipay.com/callback"                            // Specifies where the PSU should be returned to, following authentication at the bank
+      
         },
-        "pispConsentAccepted": true
-        //"initialCredentials": {
-        //  "username": "John Doe"
-        //}
-    };
+      
+        "pispConsentAccepted": true                                   // Confirms that the PSU did accept consent within the TPPs user experience
+      };
     
 
     fetch("https://api.token.io/v2/payments", {
         method: "POST",
         headers: {
-            "Authorization" : "Basic bS1xdkJWeUdab2Y1N0J3Q0UzMURGQkNzRk1aV1EtNXpLdFhFQXE6MjJjZmRkNGEtOTRkNy00ZGY5LThiNGMtYjkwZDkyMWIxNWQ1",
+            "Authorization" : "Basic bS0yckV0aTV4ZlhQWDEzRjdmc1NwZ1U5RmRYN3dzLTV6S3RYRUFxOjM2YTExYzJmLWU5ZWItNGNlZi1iYzk1LTYyZDZiZjEzM2Y0Nw==",
             "Content-Type": "application/json",
         },
         body: JSON.stringify(json),
     })
     .then((response) => response.json())
-    .then((data) => v2pmid(data));
+    .then((data) => renderv2(data));
 
 }
 
-function v2pmid(data) {
+function renderv2(data) {
     // Get text elements
     const rq = document.getElementById("clicklink");
     var target = 'target="_blank"';
 
     // link = "https://web-app.token.io/app/request-token/" + data.tokenRequest.id
 
-
-    hyperlink = "<a " + data.payment.authentication.redirectUrl +"'>Bank redirection Link</a>";
-    fulllink = data.payment.authentication.redirectUrl
+    hyperlink = "<a " + target + "href=" + data.payment.authentication.redirectUrl +"'>Bank Link</a>";
+    fulllink = "" + data.payment.authentication.redirectUrl 
     
     document.getElementById("clicklink").innerHTML = hyperlink
     document.getElementById("fulllink").innerHTML = fulllink
-    
 
-    sessionStorage.setItem("qr",hyperlink);
+    sessionStorage.setItem("qr",fulllink);
 
     qr = sessionStorage.getItem("qr");
 

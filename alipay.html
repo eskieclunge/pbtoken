@@ -4,7 +4,7 @@
 <head>
 
   <meta charset='UTF-8'>
-  <title>Open Banking V2 Payment Demo</title>
+  <title>Open Banking Payment Demo</title>
   <meta name="robots" content="noindex">
 
   <link rel="shortcut icon" type="image/png" href="icon.png">
@@ -15,6 +15,14 @@
 </head>
 
 <body style="font-size: 20px; color:#040e6a;">
+  
+  
+  <a href="https://global.alipay.com/platform/site/ihome/">
+    <img width="145" height="150" src="assets/alipay-logo.png" >
+  </a>
+  <p>Let's replicate an Alipay account top up.</p>
+
+
   <a href="https://www.token.io/">
     <img width="145" height="150" src="token.png" sizes="(max-width: 290px) 100vw, 290px">
   </a>
@@ -23,29 +31,21 @@
   
   <br> 
 
-  <p>Choose the amount:</p>
+
+
+  <p>Choose the amount to top up:</p>
   <input type="number" id="Amount" placeholder="Amount" />
 
   <p>Choose your bank:</p>
-  <div>
-    <input type="radio" id="bankId" name="Bank_Identifier" value="ob-lloyds">
-    <label for="html">Lloyds</label><br>
 
-    <input type="radio" id="bankId" name="Bank_Identifier" value="ob-natwest">
-    <label for="javascript">Natwest</label>
-    
-  
-  </div>
-
-  <button id="button" onclick="sendgbpwithbank()" type='paymentbutton' >Initiate GBP Payment to Unicef - No Branding</button>
+  <button id="button" onclick="sendv2natwest()" type='paymentbutton' >Initiate top up</button>
+  <button id="button" onclick="sendsant()" type='paymentbutton' >Initiate EUR Payment to Sauveteurs Sans Frontières - Some Branding</button>
 
   <p id="clicklink"></p>
   <p id="fulllink"></p>
 
 
 <p></p>
-
-
 <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
 
 
