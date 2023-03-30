@@ -373,13 +373,15 @@ function v2pmid(data) {
 
     // link = "https://web-app.token.io/app/request-token/" + data.tokenRequest.id
 
-    
-    redirect = data.payment.authentication.redirectUrl
-    
-    
-    document.getElementById("fulllink").innerHTML = redirect
 
-    sessionStorage.setItem("qr",redirect);
+    hyperlink = "<a " + data.payment.authentication.redirectUrl +"'>Bank redirection Link</a>";
+    fulllink = data.payment.authentication.redirectUrl
+    
+    document.getElementById("clicklink").innerHTML = hyperlink
+    document.getElementById("fulllink").innerHTML = fulllink
+    
+
+    sessionStorage.setItem("qr",hyperlink);
 
     qr = sessionStorage.getItem("qr");
 
