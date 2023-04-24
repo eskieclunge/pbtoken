@@ -314,7 +314,54 @@ function sendv2natwest() {
             },
       
           "returnRefundAccount": true,                                // Specifies whether the originator account information should be provided back to the TPP
-          "callbackUrl": "https://www.alipay.com/callback"                            // Specifies where the PSU should be returned to, following authentication at the bank
+          "callbackUrl": "https://www.alipay.com/"                            // Specifies where the PSU should be returned to, following authentication at the bank
+      
+        },
+      
+        "pispConsentAccepted": true                                   // Confirms that the PSU did accept consent within the TPPs user experience
+      };
+    
+
+    fetch("https://api.token.io/v2/payments", {
+        method: "POST",
+        headers: {
+            "Authorization" : "Basic bS0yckV0aTV4ZlhQWDEzRjdmc1NwZ1U5RmRYN3dzLTV6S3RYRUFxOjM2YTExYzJmLWU5ZWItNGNlZi1iYzk1LTYyZDZiZjEzM2Y0Nw==",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(json),
+    })
+    .then((response) => response.json())
+    .then((data) => renderv2(data));
+
+}
+
+function sendv2sant() {
+    var x = (Math.floor(Math.random() * 100000000) + 100000000).toString().substring(1);
+    var Amount = document.getElementById("Amount").value;
+
+
+      const json = {
+        "initiation": {
+          "bankId": "ob-santander",                                     // Sets the bank to to be used
+          "refId": x,                          // Sets the unique payment reference identifier
+          "remittanceInformationPrimary": x,
+          "remittanceInformationSecondary": "secondary remittance info",
+          //"onBehalfOfId": "string",
+      
+          "amount": {
+            "value": Amount,                                          // Specifies the number of the payment
+            "currency": "GBP"                                         // Specifies the currency of the payment to be initiated
+          },
+          "localInstrument": "FASTER_PAYMENTS",                       // Specifies the payment rail to be used
+      
+          "creditor": {                                   
+            "name": "Alipay top-up",                               // Specifies the legal name of the beneficiary account
+            "accountNumber": "78044278",                              // Specifies the account number of the beneficiary account
+            "sortCode": "517014"                                      // Specifies the sort code of the beneficiary account
+            },
+      
+          "returnRefundAccount": true,                                // Specifies whether the originator account information should be provided back to the TPP
+          "callbackUrl": "https://www.alipay.com/"                            // Specifies where the PSU should be returned to, following authentication at the bank
       
         },
       
@@ -342,7 +389,7 @@ function renderv2(data) {
 
     // link = "https://web-app.token.io/app/request-token/" + data.tokenRequest.id
 
-    hyperlink = "<a " + target + "href=" + data.payment.authentication.redirectUrl +"'>Bank Link</a>";
+    hyperlink = "<a " + target + "href=" + data.payment.authentication.redirectUrl +"'>Go to bank</a>";
     fulllink = "" + data.payment.authentication.redirectUrl 
     
     document.getElementById("clicklink").innerHTML = hyperlink

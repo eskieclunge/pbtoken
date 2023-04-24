@@ -18,16 +18,17 @@
   
   
   <a href="https://global.alipay.com/platform/site/ihome/">
-    <img width="145" height="150" src="assets/alipay-logo.png" >
+    <img height="300" src="assets/alipay-logo.png" >
   </a>
-  <p>Let's replicate an Alipay account top up.</p>
+  <p>Let's replicate an Alipay wallet top up.</p>
 
+  <br> 
 
   <a href="https://www.token.io/">
     <img width="145" height="150" src="token.png" sizes="(max-width: 290px) 100vw, 290px">
   </a>
 
-  <p>This is an Open Banking Payment Demo using Token.io for Best in Class Pan-European and UK Connectivity.</p>   
+
   
   <br> 
 
@@ -36,22 +37,23 @@
   <p>Choose the amount to top up:</p>
   <input type="number" id="Amount" placeholder="Amount" />
 
-  <p>Choose your bank:</p>
+  <p>Select your bank:</p>
 
-  <button id="button" onclick="sendv2natwest()" type='paymentbutton' >Initiate top up</button>
-  <button id="button" onclick="sendsant()" type='paymentbutton' >Initiate EUR Payment to Sauveteurs Sans Frontières - Some Branding</button>
+  <div class="row">
+    <div class="column">
+      <img id="buttonv2" onclick="sendv2natwest()" width="185" height="150" src="assets/nw-logo.jpg">
+    </div>
+    <div class="column">
+      <img id="buttonv2" onclick="sendv2sant()" width="185" height="150" src="assets/sant-logo.png">
+    </div>
+  </div>
+
+  
 
   <p id="clicklink"></p>
-  <p id="fulllink"></p>
 
 
-<p></p>
-<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
 
-
-  <div id="qrcode-2"></div>
-
-/* QR Code for Launch on Mobile */
 </body>
 
 
