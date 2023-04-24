@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang='en' class=''>
+
+<head>
+
+  <meta charset='UTF-8'>
+  <title>Open Banking Payment Demo</title>
+  <meta name="robots" content="noindex">
+
+  <link rel="shortcut icon" type="image/png" href="icon.png">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="obdemo.js"></script>
+  
+</head>
+
+<body style="font-size: 20px; color:#040e6a;">
+  <a href="https://www.santander.co.uk/">
+    <img src="assets/santander.png" >
+  </a>
+
+  <p>This is an Open Banking Payment Demo for Santander using Token.io for Best in Class Pan-European and UK Connectivity.</p>   
+  
+  <br> 
+
+  <p>Click below to initiate a VRP for up to 5 GBP:</p>
+
+  <p></p>
+
+  <button id="button" onclick="createvrpgbp()"  >Initiate VRP Consent</button>
+
+
+  <p id="vrpId"></p>
+  <p id="vrpStatus"></p>
+
+
+<p></p>
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+
+
+  <div id="qrcode-2"></div>
+
+/* QR Code for Launch on Mobile */
+</body>
+
+
+
+
+</html>

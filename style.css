@@ -32,8 +32,8 @@ p {
 }
 
 #button {
-  background: var(--yellow);
-  color: var(--black);
+  background: var(--blue);
+  color: var(--text);
   padding: 1rem 2rem;
   font-weight: 300;
   text-transform: uppercase;

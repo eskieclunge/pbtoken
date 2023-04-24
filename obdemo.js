@@ -77,7 +77,7 @@ function sendeur() {
     
             "actingAs":{                              // Used to specify the sub-tpp executing the transaction
                 "refId": "ba8597ac-aa69-4171-864e-457cc5d4982a",
-                "displayName": "Sauveteurs Sans Frontières"
+                "displayName": "Sauveteurs Sans Frontieres"
     
             },
     
@@ -92,7 +92,7 @@ function sendeur() {
                                 "iban": "FR7630003011320003726132433"    
                             },
                             "customerData": {
-                                "legalNames": ["Sauveteurs Sans Frontières"]
+                                "legalNames": ["Sauveteurs Sans Frontieres"]
                             }
                         }
                     ]
@@ -308,13 +308,13 @@ function sendv2natwest() {
           "localInstrument": "FASTER_PAYMENTS",                       // Specifies the payment rail to be used
       
           "creditor": {                                   
-            "name": "Alipay top-up",                               // Specifies the legal name of the beneficiary account
+            "name": "Wolfpay top-up",                               // Specifies the legal name of the beneficiary account
             "accountNumber": "83998835",                              // Specifies the account number of the beneficiary account
             "sortCode": "090128"                                      // Specifies the sort code of the beneficiary account
             },
       
           "returnRefundAccount": true,                                // Specifies whether the originator account information should be provided back to the TPP
-          "callbackUrl": "https://www.alipay.com/"                            // Specifies where the PSU should be returned to, following authentication at the bank
+          "callbackUrl": "https://www.pbarnett.io/wolf-callback.html/"                            // Specifies where the PSU should be returned to, following authentication at the bank
       
         },
       
@@ -333,6 +333,7 @@ function sendv2natwest() {
     .then((response) => response.json())
     .then((data) => renderv2(data));
 
+    
 }
 
 function sendv2sant() {
@@ -355,13 +356,13 @@ function sendv2sant() {
           "localInstrument": "FASTER_PAYMENTS",                       // Specifies the payment rail to be used
       
           "creditor": {                                   
-            "name": "Alipay top-up",                               // Specifies the legal name of the beneficiary account
+            "name": "Wolfpay top-up",                               // Specifies the legal name of the beneficiary account
             "accountNumber": "78044278",                              // Specifies the account number of the beneficiary account
             "sortCode": "517014"                                      // Specifies the sort code of the beneficiary account
             },
       
           "returnRefundAccount": true,                                // Specifies whether the originator account information should be provided back to the TPP
-          "callbackUrl": "https://www.alipay.com/"                            // Specifies where the PSU should be returned to, following authentication at the bank
+          "callbackUrl": "https://www.pbarnett.io/wolf-callback.html/"                            // Specifies where the PSU should be returned to, following authentication at the bank
       
         },
       
@@ -380,6 +381,7 @@ function sendv2sant() {
     .then((response) => response.json())
     .then((data) => renderv2(data));
 
+    
 }
 
 function renderv2(data) {
@@ -410,4 +412,130 @@ function renderv2(data) {
     });
 
     console.log(qr);
+}
+
+function createvrpgbp() {
+    var x = (Math.floor(Math.random() * 100000000) + 100000000).toString().substring(1);
+
+
+      const json = {
+        "initiation": {
+            "currency": "GBP",
+            "refId": x,
+            "remittanceInformationPrimary": "MacMillan Donation",
+            "remittanceInformationSecondary": "secondary remittance info",
+            "endDateTime": "2028-04-01T00:00:00.000+00:00",
+            
+            "vrpType": "SWEEPING", // "SWEEPING" for sweeping, "OTHER" for non-sweeping cases
+            "localInstrument": "FASTER_PAYMENTS",
+            "creditor": {
+                "name": "Santander - MacMillan Donation",
+                "accountNumber": "83998835",
+                "sortCode": "090128"
+            },
+            "maximumIndividualAmount": "1.00",
+            "periodicLimits": [
+                {
+                    "maximumAmount": "5.00",
+                    "periodType": "YEAR"
+                }
+            ],
+            "callbackUrl": "http://pbarnett.io/callback-vrp.html",
+            "returnRefundAccount": true
+        }
+    };
+    
+
+    fetch("https://api.token.io/vrp-consents", {
+        method: "POST",
+        headers: {
+            "Authorization" : "Basic bS00VGpldHRCdEI0aTc1d2N5OWl2aVBQU050RlpELTV6S3RYRUFxOjc5NWEwOWRmLWU1NzUtNDExNy1hOWM3LWQ3MTRlYjI5ZTU2NA==",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(json),
+    })
+    .then((response) => response.json())
+    .then((data) => rendervc(data));
+
+}
+
+function rendervc(data) {
+    // Get text elements
+    const rq = document.getElementById("clicklink");
+    var target = 'target="_blank"';
+
+    // link = "https://web-app.token.io/app/request-token/" + data.tokenRequest.id
+
+    hyperlink = "<a " + target + "href='https://web-app.token.io/app/initiation?vrp-consent-id=" + data.vrpConsent.id + "&country=gb"+"'>WebApp Link</a>";
+    fulllink = "https://web-app.token.io/app/initiation?vrp-consent-id=" + data.vrpConsent.id + "&country=gb"
+    
+    document.getElementById("clicklink").innerHTML = hyperlink
+    document.getElementById("fulllink").innerHTML = fulllink
+
+    sessionStorage.setItem("qr",fulllink);
+
+    qr = sessionStorage.getItem("qr");
+
+    
+    var qrcode = new QRCode(document.getElementById("qrcode-2"), {
+	text: qr,
+	width: 128,
+	height: 128,
+	colorDark : "#5868bf",
+	colorLight : "#ffffff",
+	correctLevel : QRCode.CorrectLevel.H
+    });
+
+    console.log(qr);
+}
+
+
+function createvrppgbp() {
+    var x = (Math.floor(Math.random() * 100000000) + 100000000).toString().substring(1);
+
+
+      const json = {
+        "initiation": {
+            "consentId": vc,
+            "refId": x,
+            "remittanceInformationPrimary": "MacMillan Donation",
+            "remittanceInformationSecondary": "secondary remittance info",
+            "amount": {
+                "value": "1.00",
+                "currency": "GBP"
+            },
+            "confirmFunds": true
+        }
+    };
+    
+
+    fetch("https://api.token.io/vrps", {
+        method: "POST",
+        headers: {
+            "Authorization" : "Basic bS00VGpldHRCdEI0aTc1d2N5OWl2aVBQU050RlpELTV6S3RYRUFxOjc5NWEwOWRmLWU1NzUtNDExNy1hOWM3LWQ3MTRlYjI5ZTU2NA==",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(json),
+    })
+    .then((response) => response.json())
+    .then((data) => rendervrp(data));
+
+}
+
+
+function rendervrp(data) {
+    // Get text elements
+
+
+
+    vrpId = data.vrp.id ;
+    vrpStatus = data.vrp.status ;
+    bankvrpStatus = data.vrp.bankVrpStatus ;
+    statusReasonInformation = data.vrp.statusReasonInformation ;
+
+
+    document.getElementById("vrpId").innerHTML = "Token VRP Identifier : " + vrpId
+    document.getElementById("vrpStatus").innerHTML = "Token VRP Status : " + vrpStatus
+    document.getElementById("bankvrpStatus").innerHTML = "Bank VRP Status : " + bankvrpStatus
+    document.getElementById("statusReasonInformation").innerHTML = "Status reason information : " + statusReasonInformation
 }
