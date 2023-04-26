@@ -414,7 +414,7 @@ function renderv2(data) {
     console.log(qr);
 }
 
-function createvrpgbp() {
+function createVCGBPCred() {
     var x = (Math.floor(Math.random() * 100000000) + 100000000).toString().substring(1);
 
 
@@ -422,25 +422,115 @@ function createvrpgbp() {
         "initiation": {
             "currency": "GBP",
             "refId": x,
-            "remittanceInformationPrimary": "MacMillan Donation",
+            "remittanceInformationPrimary": "Card Payments",
             "remittanceInformationSecondary": "secondary remittance info",
             "endDateTime": "2028-04-01T00:00:00.000+00:00",
-            
-            "vrpType": "SWEEPING", // "SWEEPING" for sweeping, "OTHER" for non-sweeping cases
+            "onBehalfOfId": "1f13f339-c59d-495a-bc02-4c16d6190205",
+            "vrpType": "OTHER", // "SWEEPING" for sweeping, "OTHER" for non-sweeping cases
             "localInstrument": "FASTER_PAYMENTS",
             "creditor": {
-                "name": "Santander - MacMillan Donation",
-                "accountNumber": "83998835",
-                "sortCode": "090128"
+                "name": "Santander",
+                "accountNumber": "43614478",
+                "sortCode": "070436"
             },
             "maximumIndividualAmount": "1.00",
             "periodicLimits": [
                 {
                     "maximumAmount": "5.00",
-                    "periodType": "YEAR"
+                    "periodType": "WEEK"
                 }
             ],
-            "callbackUrl": "http://pbarnett.io/callback-vrp.html",
+            "callbackUrl": "http://pbarnett.io/callback-vrp-cred.html",
+            "returnRefundAccount": true
+        }
+    };
+    
+
+    fetch("https://api.token.io/vrp-consents", {
+        method: "POST",
+        headers: {
+            "Authorization" : "Basic bS00VGpldHRCdEI0aTc1d2N5OWl2aVBQU050RlpELTV6S3RYRUFxOjc5NWEwOWRmLWU1NzUtNDExNy1hOWM3LWQ3MTRlYjI5ZTU2NA==",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(json),
+    })
+    .then((response) => response.json())
+    .then((data) => rendervc(data));
+
+}
+
+function createVCGBPCharity() {
+    var x = (Math.floor(Math.random() * 100000000) + 100000000).toString().substring(1);
+
+
+      const json = {
+        "initiation": {
+            "currency": "GBP",
+            "refId": x,
+            "remittanceInformationPrimary": "Charity Donations",
+            "remittanceInformationSecondary": "secondary remittance info",
+            "endDateTime": "2028-04-01T00:00:00.000+00:00",
+            "onBehalfOfId": "b60590b1-759b-4a82-835c-e6ec9a493459",
+            "vrpType": "OTHER", // "SWEEPING" for sweeping, "OTHER" for non-sweeping cases
+            "localInstrument": "FASTER_PAYMENTS",
+            "creditor": {
+                "name": "MacMillan Charity",
+                "accountNumber": "43614478",
+                "sortCode": "070436"
+            },
+            "maximumIndividualAmount": "1.00",
+            "periodicLimits": [
+                {
+                    "maximumAmount": "5.00",
+                    "periodType": "WEEK"
+                }
+            ],
+            "callbackUrl": "http://pbarnett.io/callback-vrp-charity.html",
+            "returnRefundAccount": true
+        }
+    };
+    
+
+    fetch("https://api.token.io/vrp-consents", {
+        method: "POST",
+        headers: {
+            "Authorization" : "Basic bS00VGpldHRCdEI0aTc1d2N5OWl2aVBQU050RlpELTV6S3RYRUFxOjc5NWEwOWRmLWU1NzUtNDExNy1hOWM3LWQ3MTRlYjI5ZTU2NA==",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(json),
+    })
+    .then((response) => response.json())
+    .then((data) => rendervc(data));
+
+}
+
+function createVCGBPConsumer() {
+    var x = (Math.floor(Math.random() * 100000000) + 100000000).toString().substring(1);
+
+
+      const json = {
+        "initiation": {
+            "currency": "GBP",
+            "refId": x,
+            "remittanceInformationPrimary": "Finance Repayments",
+            "remittanceInformationSecondary": "secondary remittance info",
+            "endDateTime": "2028-04-01T00:00:00.000+00:00",
+            "onBehalfOfId": "5d8de3f1-d6f4-4582-89e0-840ec7de911d",
+            "vrpType": "OTHER", // "SWEEPING" for sweeping, "OTHER" for non-sweeping cases
+            "localInstrument": "FASTER_PAYMENTS",
+            "creditor": {
+                "name": "Santander",
+                "accountNumber": "43614478",
+                "sortCode": "070436"
+            },
+            "maximumIndividualAmount": "1.00",
+            "periodicLimits": [
+                {
+                    "maximumAmount": "5.00",
+                    "periodType": "WEEK"
+                }
+            ],
+            "callbackUrl": "http://pbarnett.io/callback-vrp-consumer.html",
             "returnRefundAccount": true
         }
     };
@@ -490,7 +580,8 @@ function rendervc(data) {
 }
 
 
-function createvrppgbp() {
+
+function createvrpCred() {
     var x = (Math.floor(Math.random() * 100000000) + 100000000).toString().substring(1);
 
 
@@ -498,7 +589,71 @@ function createvrppgbp() {
         "initiation": {
             "consentId": vc,
             "refId": x,
-            "remittanceInformationPrimary": "MacMillan Donation",
+            "remittanceInformationPrimary": "Card Payments",
+            "remittanceInformationSecondary": "secondary remittance info",
+            "amount": {
+                "value": "1.00",
+                "currency": "GBP"
+            },
+            "confirmFunds": true
+        }
+    };
+    
+
+    fetch("https://api.token.io/vrps", {
+        method: "POST",
+        headers: {
+            "Authorization" : "Basic bS00VGpldHRCdEI0aTc1d2N5OWl2aVBQU050RlpELTV6S3RYRUFxOjc5NWEwOWRmLWU1NzUtNDExNy1hOWM3LWQ3MTRlYjI5ZTU2NA==",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(json),
+    })
+    .then((response) => response.json())
+    .then((data) => rendervrp(data));
+
+}
+
+function createvrpCharity() {
+    var x = (Math.floor(Math.random() * 100000000) + 100000000).toString().substring(1);
+
+
+      const json = {
+        "initiation": {
+            "consentId": vc,
+            "refId": x,
+            "remittanceInformationPrimary": "Charity Donations",
+            "remittanceInformationSecondary": "secondary remittance info",
+            "amount": {
+                "value": "1.00",
+                "currency": "GBP"
+            },
+            "confirmFunds": true
+        }
+    };
+    
+
+    fetch("https://api.token.io/vrps", {
+        method: "POST",
+        headers: {
+            "Authorization" : "Basic bS00VGpldHRCdEI0aTc1d2N5OWl2aVBQU050RlpELTV6S3RYRUFxOjc5NWEwOWRmLWU1NzUtNDExNy1hOWM3LWQ3MTRlYjI5ZTU2NA==",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(json),
+    })
+    .then((response) => response.json())
+    .then((data) => rendervrp(data));
+
+}
+
+function createvrpConsumer() {
+    var x = (Math.floor(Math.random() * 100000000) + 100000000).toString().substring(1);
+
+
+      const json = {
+        "initiation": {
+            "consentId": vc,
+            "refId": x,
+            "remittanceInformationPrimary": "Finance Repayments",
             "remittanceInformationSecondary": "secondary remittance info",
             "amount": {
                 "value": "1.00",

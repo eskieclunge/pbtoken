@@ -12,32 +12,37 @@
   <link rel="stylesheet" href="style.css">
   
   <script src="callback.js"></script>
+  <script src="obdemo.js"></script>
 
 </head>
 
   <body style="font-size: 20px; color:#040e6a;">
-    
+
+    <a href="https://www.token.io/">
+      <img width="145" height="150" src="token.png" sizes="(max-width: 290px) 100vw, 290px">
+    </a>
 
       <h1 style="color:rgb(41, 0, 87);">
         Callback Parameters
       </h1>
     
-      <p id="rq"></p>
+      <p id="vc"></p>
       <p id="status"></p>
       <p id="t"></p>
       <p id="errorMsg"></p>
       
-      <script src="callback.js"></script>
+      <script src="callback-vrp.js"></script>
 
 
   <p></p>
 
-  <button id="button" onclick="refreshTR()" type='paymentbutton' >Refresh Payment Initiation Request status</button>
+  <button id="button" onclick="createvrpConsumer()"  >Make payment under the VRP Consent</button>
 
-  <p id="trStatus"></p>
+  <p id="vrpId"></p>
+  <p id="vrpStatus"></p>
+  <p id="bankvrpStatus"></p>
+  <p id="statusReasonInformation"></p>
+
   <p></p>
-  <button id="button" onclick="refreshT()" type='paymentbutton' >Refresh Payment Initiation Transaction status</button>
-  <p id="tStatus"></p>
-
   </body>
 </html> 
