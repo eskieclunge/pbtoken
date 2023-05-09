@@ -426,7 +426,7 @@ function createVCGBPCred() {
             "remittanceInformationSecondary": "secondary remittance info",
             "endDateTime": "2028-04-01T00:00:00.000+00:00",
             "onBehalfOfId": "1f13f339-c59d-495a-bc02-4c16d6190205",
-            "vrpType": "OTHER", // "SWEEPING" for sweeping, "OTHER" for non-sweeping cases
+            "vrpType": "SWEEPING", // "SWEEPING" for sweeping, "OTHER" for non-sweeping cases
             "localInstrument": "FASTER_PAYMENTS",
             "creditor": {
                 "name": "Santander",
@@ -441,7 +441,14 @@ function createVCGBPCred() {
                 }
             ],
             "callbackUrl": "http://pbarnett.io/callback-vrp-cred.html",
-            "returnRefundAccount": true
+            "merchantCategoryCode": "1520",
+            "returnRefundAccount": true,
+            "standardSpecific": {
+                "obie": {
+                    "paymentContextCode": "ECOMMERCE_GOODS",
+                    "merchantCustomerIdentification": "string"
+                }
+            }
         }
     };
     
@@ -471,7 +478,7 @@ function createVCGBPCharity() {
             "remittanceInformationSecondary": "secondary remittance info",
             "endDateTime": "2028-04-01T00:00:00.000+00:00",
             "onBehalfOfId": "b60590b1-759b-4a82-835c-e6ec9a493459",
-            "vrpType": "OTHER", // "SWEEPING" for sweeping, "OTHER" for non-sweeping cases
+            "vrpType": "SWEEPING", // "SWEEPING" for sweeping, "OTHER" for non-sweeping cases
             "localInstrument": "FASTER_PAYMENTS",
             "creditor": {
                 "name": "MacMillan Charity",
@@ -486,7 +493,14 @@ function createVCGBPCharity() {
                 }
             ],
             "callbackUrl": "http://pbarnett.io/callback-vrp-charity.html",
-            "returnRefundAccount": true
+            "merchantCategoryCode": "1520",
+            "returnRefundAccount": true,
+            "standardSpecific": {
+                "obie": {
+                    "paymentContextCode": "ECOMMERCE_GOODS",
+                    "merchantCustomerIdentification": "string"
+                }
+            }
         }
     };
     
@@ -516,7 +530,7 @@ function createVCGBPConsumer() {
             "remittanceInformationSecondary": "secondary remittance info",
             "endDateTime": "2028-04-01T00:00:00.000+00:00",
             "onBehalfOfId": "5d8de3f1-d6f4-4582-89e0-840ec7de911d",
-            "vrpType": "OTHER", // "SWEEPING" for sweeping, "OTHER" for non-sweeping cases
+            "vrpType": "SWEEPING", // "SWEEPING" for sweeping, "OTHER" for non-sweeping cases
             "localInstrument": "FASTER_PAYMENTS",
             "creditor": {
                 "name": "Santander",
@@ -531,7 +545,14 @@ function createVCGBPConsumer() {
                 }
             ],
             "callbackUrl": "http://pbarnett.io/callback-vrp-consumer.html",
-            "returnRefundAccount": true
+            "merchantCategoryCode": "1520",
+            "returnRefundAccount": true,
+            "standardSpecific": {
+                "obie": {
+                    "paymentContextCode": "ECOMMERCE_GOODS",
+                    "merchantCustomerIdentification": "string"
+                }
+            }
         }
     };
     
@@ -548,6 +569,59 @@ function createVCGBPConsumer() {
     .then((data) => rendervc(data));
 
 }
+
+function createVCGBPJLP() {
+    var x = (Math.floor(Math.random() * 100000000) + 100000000).toString().substring(1);
+
+
+      const json = {
+        "initiation": {
+            "currency": "GBP",
+            "refId": x,
+            "remittanceInformationPrimary": "Wine Purchase",
+            "remittanceInformationSecondary": "secondary remittance info",
+            "endDateTime": "2028-04-01T00:00:00.000+00:00",
+            "onBehalfOfId": "c2925186-94d4-42a1-969b-5672b5dc6ce3",
+            "vrpType": "SWEEPING", // "SWEEPING" for sweeping, "OTHER" for non-sweeping cases
+            "localInstrument": "FASTER_PAYMENTS",
+            "creditor": {
+                "name": "Waitrose",
+                "accountNumber": "43614478",
+                "sortCode": "070436"
+            },
+            "maximumIndividualAmount": "1.00",
+            "periodicLimits": [
+                {
+                    "maximumAmount": "5.00",
+                    "periodType": "WEEK"
+                }
+            ],
+            "callbackUrl": "http://pbarnett.io/callback-vrp-jlp.html",
+            "merchantCategoryCode": "1520",
+            "returnRefundAccount": true,
+            "standardSpecific": {
+                "obie": {
+                    "paymentContextCode": "ECOMMERCE_GOODS",
+                    "merchantCustomerIdentification": "string"
+                }
+            }
+        }
+    };
+    
+
+    fetch("https://api.token.io/vrp-consents", {
+        method: "POST",
+        headers: {
+            "Authorization" : "Basic bS00VGpldHRCdEI0aTc1d2N5OWl2aVBQU050RlpELTV6S3RYRUFxOjc5NWEwOWRmLWU1NzUtNDExNy1hOWM3LWQ3MTRlYjI5ZTU2NA==",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(json),
+    })
+    .then((response) => response.json())
+    .then((data) => rendervc(data));
+
+}
+
 
 function rendervc(data) {
     // Get text elements
@@ -676,6 +750,39 @@ function createvrpConsumer() {
     .then((data) => rendervrp(data));
 
 }
+
+function createvrpJLP() {
+    var x = (Math.floor(Math.random() * 100000000) + 100000000).toString().substring(1);
+
+
+      const json = {
+        "initiation": {
+            "consentId": vc,
+            "refId": x,
+            "remittanceInformationPrimary": "Wine Purchase",
+            "remittanceInformationSecondary": "secondary remittance info",
+            "amount": {
+                "value": "1.00",
+                "currency": "GBP"
+            },
+            "confirmFunds": true
+        }
+    };
+    
+
+    fetch("https://api.token.io/vrps", {
+        method: "POST",
+        headers: {
+            "Authorization" : "Basic bS00VGpldHRCdEI0aTc1d2N5OWl2aVBQU050RlpELTV6S3RYRUFxOjc5NWEwOWRmLWU1NzUtNDExNy1hOWM3LWQ3MTRlYjI5ZTU2NA==",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(json),
+    })
+    .then((response) => response.json())
+    .then((data) => rendervrp(data));
+
+}
+
 
 
 function rendervrp(data) {
