@@ -1,3 +1,5 @@
+// V1 SIP Functions
+
 function sendgbp() {
     var x = (Math.floor(Math.random() * 100000000) + 100000000).toString().substring(1);
     var Amount = document.getElementById("Amount").value;
@@ -257,6 +259,7 @@ function sendlei() {
 
 }
 
+// Render SIP QR Code
 function renderrq(data) {
     // Get text elements
     const rq = document.getElementById("clicklink");
@@ -288,6 +291,8 @@ function renderrq(data) {
 }
 
 
+
+// V2 Payment requests
 function sendv2natwest() {
     var x = (Math.floor(Math.random() * 100000000) + 100000000).toString().substring(1);
     var Amount = document.getElementById("Amount").value;
@@ -414,6 +419,7 @@ function renderv2(data) {
     console.log(qr);
 }
 
+// VRP Consent Functions 
 function createVCGBPCred() {
     var x = (Math.floor(Math.random() * 100000000) + 100000000).toString().substring(1);
 
@@ -622,7 +628,7 @@ function createVCGBPJLP() {
 
 }
 
-
+// Render VRP QR Code
 function rendervc(data) {
     // Get text elements
     const rq = document.getElementById("clicklink");
@@ -654,7 +660,7 @@ function rendervc(data) {
 }
 
 
-
+// VRP Payment functions
 function createvrpCred() {
     var x = (Math.floor(Math.random() * 100000000) + 100000000).toString().substring(1);
 
@@ -784,7 +790,7 @@ function createvrpJLP() {
 }
 
 
-
+// VRP Landing page functions
 function rendervrp(data) {
     // Get text elements
 
@@ -800,4 +806,83 @@ function rendervrp(data) {
     document.getElementById("vrpStatus").innerHTML = "Token VRP Status : " + vrpStatus
     document.getElementById("bankvrpStatus").innerHTML = "Bank VRP Status : " + bankvrpStatus
     document.getElementById("statusReasonInformation").innerHTML = "Status reason information : " + statusReasonInformation
+}
+
+
+
+
+
+// Instant QR functions
+
+function sendeurInstant() {
+    var x = (Math.floor(Math.random() * 100000000) + 100000000).toString().substring(1);
+
+
+      const json = {
+        "requestPayload": {
+            "to": {
+                "alias": {"realmId":"m:jH8SCQjtW9uGEQCrNS99qCJ8cHN:5zKtXEAq","type":"DOMAIN","value":"pbarnett.ioo"},
+                "id": "m:2rEti5xfXPX13F7fsSpgU9FdX7ws:5zKtXEAq"
+            },
+    
+            "actingAs":{                              // Used to specify the sub-tpp executing the transaction
+                "refId": "ba8597ac-aa69-4171-864e-457cc5d4982a",
+                "displayName": "Sauveteurs Sans Frontieres"
+    
+            },
+    
+
+            "transferBody": {
+                "currency": "EUR",
+                "lifetimeAmount": 1,
+                "instructions": {
+                    "transferDestinations": [
+                        {
+                            "sepa": {
+                                "iban": "FR7630003011320003726132433"    
+                            },
+                            "customerData": {
+                                "legalNames": ["Sauveteurs Sans Frontieres"]
+                            }
+                        }
+                    ]
+                }
+            },
+    
+          
+    
+            "description": "Donation to SSF",
+            "refId": x,
+            "redirectUrl": "http://pbarnett.io/callback.html" // the URL that the request or PSU should be returned to (the TPP) 
+            
+        }
+    
+    };
+    
+
+    fetch("https://api.token.io/token-requests", {
+        method: "POST",
+        headers: {
+            "Authorization" : "Basic bS0yckV0aTV4ZlhQWDEzRjdmc1NwZ1U5RmRYN3dzLTV6S3RYRUFxOjM2YTExYzJmLWU5ZWItNGNlZi1iYzk1LTYyZDZiZjEzM2Y0Nw==",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(json),
+    })
+    .then((response) => response.json())
+    .then((data) => renderrqInstant(data));
+
+}
+
+function renderrqInstant(data) {
+    // Get text elements
+    const rq = document.getElementById("clicklink");
+    var target = 'target="_blank"';
+
+    // link = "https://web-app.token.io/app/request-token/" + data.tokenRequest.id
+
+    hyperlink = "<a " + target + "href='https://web-app.token.io/app/request-token/" + data.tokenRequest.id + "?dk=global-test"+"'>Click here to initiate a €1 payment to Sauveteurs Sans Frontieres.</a>";
+    
+    
+    document.getElementById("clicklink").innerHTML = hyperlink
+    
 }

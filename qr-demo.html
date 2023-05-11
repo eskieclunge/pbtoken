@@ -14,7 +14,7 @@
   
 </head>
 
-<body style="font-size: 20px; color:#040e6a;">
+<body onload="sendeurInstant()" style="font-size: 20px; color:#040e6a;">
   <a href="https://www.token.io/">
     <img width="145" height="150" src="token.png" sizes="(max-width: 290px) 100vw, 290px">
   </a>
@@ -23,25 +23,14 @@
   
   <br> 
 
-  <p>Choose the amount:</p>
-  <input type="number" id="Amount" placeholder="Amount" />
 
-  <p>Choose your currency:</p>
 
-  <button id="button" onclick="sendlei()" type='paymentbutton' >Initiate Lei Payment to sf-ana.ro</button>
   
 
   <p id="clicklink"></p>
-  <p id="fulllink"></p>
 
 
-<p></p>
-<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
 
-
-  <div id="qrcode-2"></div>
-
-/* QR Code for Launch on Mobile */
 </body>
 
 
