@@ -814,6 +814,71 @@ function rendervrp(data) {
 
 // Instant QR functions
 
+function sendgbpInstant() {
+    var x = (Math.floor(Math.random() * 100000000) + 100000000).toString().substring(1);
+
+
+
+      const json = {
+        "requestPayload": {
+            "to": {
+                "alias": {"realmId":"m:jH8SCQjtW9uGEQCrNS99qCJ8cHN:5zKtXEAq","type":"DOMAIN","value":"pbarnett.ioo"},
+                "id": "m:2rEti5xfXPX13F7fsSpgU9FdX7ws:5zKtXEAq"
+            },
+    
+            "countries":["GB"],
+
+            "actingAs":{
+                "displayName": "Unicef UK",
+                "refId": "f43f2be7-5b21-4408-b0d4-63d2ba1ed3f3"
+            },
+    
+            "transferBody": {
+                "currency": "GBP",
+                "lifetimeAmount": 1,
+                "returnRefundAccount":"true",
+                
+                "instructions": {
+                    "transferDestinations": [
+                        {
+                            "fasterPayments": {
+                                "sortCode": "400602",
+                                "accountNumber": "91566814"
+                            },
+                            "customerData": {
+                                "legalNames": ["Unicef"]
+                            }
+                        }
+                    ]
+                }
+            },
+    
+          
+    
+            "description": "Donation to Unicef",
+            "refId": x,
+            "redirectUrl": "http://pbarnett.io/callback-qr.html" // the URL that the request or PSU should be returned to (the TPP) 
+            
+        }
+    
+    //     "bankId": "ngp-byla"
+    //    }
+    };
+    
+
+    fetch("https://api.token.io/token-requests", {
+        method: "POST",
+        headers: {
+            "Authorization" : "Basic bS0yckV0aTV4ZlhQWDEzRjdmc1NwZ1U5RmRYN3dzLTV6S3RYRUFxOjM2YTExYzJmLWU5ZWItNGNlZi1iYzk1LTYyZDZiZjEzM2Y0Nw==",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(json),
+    })
+    .then((response) => response.json())
+    .then((data) => renderrqInstant(data));
+
+}
+
 function sendeurInstant() {
     var x = (Math.floor(Math.random() * 100000000) + 100000000).toString().substring(1);
 
@@ -853,7 +918,7 @@ function sendeurInstant() {
     
             "description": "Donation to SSF",
             "refId": x,
-            "redirectUrl": "http://pbarnett.io/callback.html" // the URL that the request or PSU should be returned to (the TPP) 
+            "redirectUrl": "http://pbarnett.io/callback-qr.html" // the URL that the request or PSU should be returned to (the TPP) 
             
         }
     
@@ -880,7 +945,7 @@ function renderrqInstant(data) {
 
     // link = "https://web-app.token.io/app/request-token/" + data.tokenRequest.id
 
-    hyperlink = "<a " + target + "href='https://web-app.token.io/app/request-token/" + data.tokenRequest.id + "?dk=global-test"+"'>Click here to initiate a €1 payment to Sauveteurs Sans Frontieres.</a>";
+    hyperlink = "<a " + target + "href='https://web-app.token.io/app/request-token/" + data.tokenRequest.id + "?dk=global-test"+"'>Click here to initiate a charity payment.</a>";
     
     
     document.getElementById("clicklink").innerHTML = hyperlink
