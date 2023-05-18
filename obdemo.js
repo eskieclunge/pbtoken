@@ -628,6 +628,59 @@ function createVCGBPJLP() {
 
 }
 
+// Barclays
+function createVCGBPCharity() {
+    var x = (Math.floor(Math.random() * 100000000) + 100000000).toString().substring(1);
+
+
+      const json = {
+        "initiation": {
+            "currency": "GBP",
+            "refId": x,
+            "remittanceInformationPrimary": "Token.io Donations",
+            "remittanceInformationSecondary": "secondary remittance info",
+            "endDateTime": "2028-04-01T00:00:00.000+00:00",
+            "onBehalfOfId": "4b6efc44-9c36-4037-980a-8baa09efca28",
+            "vrpType": "SWEEPING", // "SWEEPING" for sweeping, "OTHER" for non-sweeping cases
+            "localInstrument": "FASTER_PAYMENTS",
+            "creditor": {
+                "name": "Trussel Trust",
+                "accountNumber": "41129077",
+                "sortCode": "160021"
+            },
+            "maximumIndividualAmount": "1.00",
+            "periodicLimits": [
+                {
+                    "maximumAmount": "5.00",
+                    "periodType": "WEEK"
+                }
+            ],
+            "callbackUrl": "http://pbarnett.io/callback-vrp-charity-barc.html",
+            "merchantCategoryCode": "1520",
+            "returnRefundAccount": true,
+            "standardSpecific": {
+                "obie": {
+                    "paymentContextCode": "ECOMMERCE_GOODS",
+                    "merchantCustomerIdentification": "string"
+                }
+            }
+        }
+    };
+    
+
+    fetch("https://api.token.io/vrp-consents", {
+        method: "POST",
+        headers: {
+            "Authorization" : "Basic bS00VGpldHRCdEI0aTc1d2N5OWl2aVBQU050RlpELTV6S3RYRUFxOjc5NWEwOWRmLWU1NzUtNDExNy1hOWM3LWQ3MTRlYjI5ZTU2NA==",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(json),
+    })
+    .then((response) => response.json())
+    .then((data) => rendervc(data));
+
+}
+
 // Render VRP QR Code
 function rendervc(data) {
     // Get text elements
@@ -789,6 +842,39 @@ function createvrpJLP() {
 
 }
 
+//Barclays
+function createvrpCharityBarc() {
+    var x = (Math.floor(Math.random() * 100000000) + 100000000).toString().substring(1);
+
+
+      const json = {
+        "initiation": {
+            "consentId": vc,
+            "refId": x,
+            "remittanceInformationPrimary": "Token.io Donations",
+            "remittanceInformationSecondary": "secondary remittance info",
+            "amount": {
+                "value": "1.00",
+                "currency": "GBP"
+            },
+            "confirmFunds": true
+        }
+    };
+    
+
+    fetch("https://api.token.io/vrps", {
+        method: "POST",
+        headers: {
+            "Authorization" : "Basic bS00VGpldHRCdEI0aTc1d2N5OWl2aVBQU050RlpELTV6S3RYRUFxOjc5NWEwOWRmLWU1NzUtNDExNy1hOWM3LWQ3MTRlYjI5ZTU2NA==",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(json),
+    })
+    .then((response) => response.json())
+    .then((data) => rendervrp(data));
+
+}
+
 
 // VRP Landing page functions
 function rendervrp(data) {
@@ -807,6 +893,7 @@ function rendervrp(data) {
     document.getElementById("bankvrpStatus").innerHTML = "Bank VRP Status : " + bankvrpStatus
     document.getElementById("statusReasonInformation").innerHTML = "Status reason information : " + statusReasonInformation
 }
+
 
 
 
