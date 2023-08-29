@@ -420,6 +420,8 @@ function renderv2(data) {
 }
 
 // VRP Consent Functions 
+
+// Santander
 function createVCGBPCred() {
     var x = (Math.floor(Math.random() * 100000000) + 100000000).toString().substring(1);
 
@@ -576,6 +578,7 @@ function createVCGBPConsumer() {
 
 }
 
+// JLP
 function createVCGBPJLP() {
     var x = (Math.floor(Math.random() * 100000000) + 100000000).toString().substring(1);
 
@@ -629,7 +632,7 @@ function createVCGBPJLP() {
 }
 
 // Barclays
-function createVCGBPCharity() {
+function createVCGBPBarcCharity() {
     var x = (Math.floor(Math.random() * 100000000) + 100000000).toString().substring(1);
 
 
